@@ -53,38 +53,32 @@ public class Hero : MonoBehaviour
 
     // This variable holds a reference to the last triggering GameObject
     public GameObject lastTriggerGo = null;
-    void OnTriggerEnter(Collider other)
 
+    void OnTriggerEnter(Collider other)
     {
         // Find the tag of other.gameObject or its parent GameObjects
         GameObject go = Utils.FindTaggedParent(other.gameObject);
         // If there is a parent with a tag
         if (go != null)
-        {
-            // Make sure it's not the same triggering go as last time
+        {  // Make sure it's not the same triggering go as last time
             if (go == lastTriggerGo)
-            {
+            {                                      // 2
                 return;
             }
-            lastTriggerGo = go;
+            lastTriggerGo = go;                                             // 3
 
             if (go.tag == "Enemy")
             {
                 // If the shield was triggered by an enemy
                 // Decrease the level of the shield by 1
-                _shieldLevel--;
+                shieldLevel--;
                 // Destroy the enemy
-                Destroy(go);
+                Destroy(go);                                                // 4
             }
             else
             {
                 print("Triggered: " + go.name);            // Move this line here!
             }
-        }
-        else
-        {
-            // Otherwise announce the original other.gameObject
-            print("Triggered: " + other.gameObject.name); // Move this line here!
         }
     }
 
@@ -99,8 +93,11 @@ public class Hero : MonoBehaviour
             _shieldLevel = Mathf.Min(value, 4);
             // If the shield is going to be set to less than zero
             if (value < 0)
-            {
+            { 
                 Destroy(this.gameObject);
+                // Tell Main.S to restart the game after a delay
+                Main.S.DelayedRestart(gameRestartDelay);
+
             }
         }
     }
