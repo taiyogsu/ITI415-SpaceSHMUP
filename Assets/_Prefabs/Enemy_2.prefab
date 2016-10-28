@@ -276,7 +276,7 @@ MonoBehaviour:
   health: 10
   score: 100
   showDamageForFrames: 2
-  powerUpDropChance: 1
+  powerUpDropChance: 0.6
   ________: 0
   originalColors: []
   materials: []
